@@ -75,7 +75,7 @@ function createDataFrame(history) {
     }
     
     // escreve no data frame uma linha referente ao  semestre atual do laço
-    dataframe += semester + " " + gradesAmount['A'] + " " + gradesAmount['B'] + " " + gradesAmount['C'] + " " + gradesAmount['D'] + " " + gradesAmount['FF'] + " " + gradesAmount['-'] + "\n"
+    dataframe = semester + " " + gradesAmount['A'] + " " + gradesAmount['B'] + " " + gradesAmount['C'] + " " + gradesAmount['D'] + " " + gradesAmount['FF'] + " " + gradesAmount['-'] + "\n" + dataframe
   }
   
   return dataframe;
@@ -89,6 +89,7 @@ let content = getContent(dom);
 let semesters = groupBy(content, 'semester')
 
 let dataframe = createDataFrame(semesters);
+
 console.log(dataframe);
 
 //
