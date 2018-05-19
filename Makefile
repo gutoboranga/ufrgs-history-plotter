@@ -1,6 +1,10 @@
 # copia o dataframe pra área de transferência
 dataframe:
-	@node scrapper.js > dataframe.txt
-	@echo '> O dataframe está em dataframe.txt:'
+	@node scrapper.js > dataframe.csv
+	@echo '> O dataframe está em dataframe.csv:'
 	@echo
-	@cat dataframe.txt
+	@cat dataframe.csv
+
+plot:
+	Rscript plotter.R
+	open graph.png

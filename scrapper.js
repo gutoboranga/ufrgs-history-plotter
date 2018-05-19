@@ -55,7 +55,7 @@ function groupBy(array, key) {
 }
 
 function createDataFrame(history) {
-  var dataframe = "";
+  var dataframe = ""
   
   for (semester in history) {
     var gradesAmount = {
@@ -75,8 +75,10 @@ function createDataFrame(history) {
     }
     
     // escreve no data frame uma linha referente ao  semestre atual do laço
-    dataframe = semester + " " + gradesAmount['A'] + " " + gradesAmount['B'] + " " + gradesAmount['C'] + " " + gradesAmount['D'] + " " + gradesAmount['FF'] + " " + gradesAmount['-'] + "\n" + dataframe
+    dataframe = semester + "," + gradesAmount['A'] + "," + gradesAmount['B'] + "," + gradesAmount['C'] + "," + gradesAmount['D'] + "," + gradesAmount['FF'] + "," + gradesAmount['-'] + "\n" + dataframe
   }
+  
+  dataframe = "SEMESTRE,QUANT_A,QUANT_B,QUANT_C,QUANT_D,QUANT_FF,QUANT_UNDEFINED\n" + dataframe
   
   return dataframe;
 }
