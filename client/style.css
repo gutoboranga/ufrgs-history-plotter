@@ -1,0 +1,45 @@
+body {
+  font-family: courier;
+}
+
+h1 {
+  font-weight: 800;
+}
+
+p {
+  max-width: 50%;
+  margin: auto;
+  padding-bottom: 20px;
+}
+
+input {
+  font-family: courier;
+  font-size: 14px;
+  margin: auto;
+  display: block;
+}
+
+input[type=file] {
+  
+}
+
+button {
+  font-family: courier;
+  font-size: 14px;
+  margin: auto;
+  display: block;
+}
+
+#upload {
+}
+
+#resulting_image {
+  background-color: yellow;
+}
+
+@media (max-width: 900px)
+{
+  p {
+    max-width: 90%;
+  }
+}

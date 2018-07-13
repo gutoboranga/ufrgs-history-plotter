@@ -1,3 +1,5 @@
+all:	dataframe plot
+
 # copia o dataframe pra área de transferência
 dataframe:
 	@node scrapper.js > dataframe.csv
@@ -7,4 +9,3 @@ dataframe:
 
 plot:
 	Rscript plotter.R
-	open graph.png
