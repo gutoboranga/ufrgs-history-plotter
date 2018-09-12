@@ -1,0 +1,18 @@
+{
+  "name": "ufrgs-history-plotter-server",
+  "version": "1.0.0",
+  "description": "Server side of application to create graphs from ufrgs history page, using Node and R.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Augusto Boranga",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "shelljs": "^0.8.2"
+  }
+}
