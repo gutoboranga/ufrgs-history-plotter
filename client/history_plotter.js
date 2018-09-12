@@ -1,45 +1,51 @@
-function upload() {
-  var file = document.getElementById('fileInput').value;
-  
-  console.log("will request");
-  
-  var xhr = createCORSRequest('GET', "https://ufrgs-history-plotter-server.herokuapp.com/test");
+function loadFile(o) {
+   var fr = new FileReader();
+   
+   fr.onload = function(e) {
+     var content = e.target.result
+     
+     postFile("http://localhost:5000/api/create", content, function(response) {
+       if (response != "erro") {
+         getGraph(response);
+       } else {
+         alert("Algum erro ocorreu");
+       }
+     })
+   };
+   
+   fr.readAsText(o.files[0]);
+}
+
+function postFile(url, file, callback) {
+  var xhr = createCORSRequest('POST', url);
   
   if (!xhr) {
     throw new Error('CORS not supported');
   }
   
+  xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.onload = function() {
-    var responseText = xhr.responseText;
+    let responseText = xhr.responseText;
     
-    console.log('carregou');
-    console.log(responseText);
-    
-    // var b64Response = btoa(responseText);
-    
-    // var data = unescape(encodeURIComponent(responseText));
-    // data = btoa(data);
-    //
-    // var image = document.getElementById('resulting_image');
-    // image.src = 'data:image/png;base64,'+ data;
-  };
+    callback(responseText);
+  }
   
-  xhr.send();
+  var data = {
+    title : "teste da vaca louca",
+    file : file
+  }
+  
+  dataAsString = JSON.stringify(data)
+  
+  xhr.send(dataAsString);
 }
 
-function getGraph() {
+function getGraph(url) {
   var _img = document.getElementById('resulting_image');
   var newImg = new Image;
   
   newImg.onload = function() {
       _img.src = this.src;
   }
-  newImg.src = 'https://ufrgs-history-plotter-server.herokuapp.com/test';
-}
-
-function httpGet(url) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", url, false); // false for synchronous request
-    xmlHttp.send(null);
-    return xmlHttp.responseText;
+  newImg.src = url;
 }

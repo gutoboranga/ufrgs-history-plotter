@@ -34,7 +34,8 @@ button {
 }
 
 #resulting_image {
-  background-color: yellow;
+  display: block;
+  margin: 0 auto;
 }
 
 @media (max-width: 900px)
