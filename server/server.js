@@ -52,13 +52,15 @@ app.get('/', (req, res) => {
   }
 });
 
-app.get("/graph", function(req, res) {
-  sendFile('imgs/nova.png', res, function(){});
-});
+// app.get("/graph", function(req, res) {
+//   sendFile('imgs/nova.png', res, function(){});
+// });
 
 app.get("/graph/:id", function(req, res) {
   var id = req.params.id;
   let path = IMGS_DIR + id + IMG_EXT
+  
+  console.log("> " + path + " was requested");
 
   // checa se o arquivo com nome do id existe
   if (fs.existsSync(path)) {
@@ -87,6 +89,7 @@ app.post('/api/create', (req, res) => {
       let url = BASE_URL + "graph/" + id
 
       moveFile("graph.png", path, function() {
+        console.log("> " + path + " was created and is available at " + url);
         res.send(url);
       });
     })

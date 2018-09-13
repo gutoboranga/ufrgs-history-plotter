@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Gráfico Histórico UFRGS</title>
+    <script type="text/javascript" src="cors.js"></script>
+    <script type="text/javascript" src="history_plotter.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+  <body>
+    <div class="header">
+      <h1 align="center">Gerador de gráfico a partir do histórico escolar da UFRGS</h1>
+      
+      <p>Use o botão abaixo para fazer upload do histórico da ufrgs em html.</p>
+    </div>
+    
+    <input type="file" onchange="loadFile(this)">
+    <img id="resulting_image" height="500">
+      
+      
+      
+      <!-- <div class="result">
+        <h3 id="result_error"></h3>
+        <h3 id="result_text"></h3>
+        <h1 id="result_value"></h1>
+      </div> -->
+      
+      <!-- <p class="dataSource">Fonte dos dados utilizados para a criação desta página:
+        <a href="http://www.ufrgs.br/prograd/prograd-1/arquivos-prograd/CapacitacaoOrdenamento.pdf">
+          http://www.ufrgs.br/prograd/prograd-1/arquivos-prograd/CapacitacaoOrdenamento.pdf
+        </a>
+      </p> -->
+    
+    </body>
+</html>
