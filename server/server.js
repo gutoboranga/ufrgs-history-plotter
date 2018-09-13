@@ -3,9 +3,15 @@ var cors = require('cors')
 var shell = require('shelljs');
 var fs = require('fs');
 var bodyParser = require('body-parser');
+var shortid = require('shortid');
 var scrap = require('./scrapper').scrap
 
 var app = express();
+
+let IMGS_DIR = "imgs/"
+let IMG_EXT = ".png"
+
+let BASE_URL = "http://localhost:5000/"
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,14 +33,19 @@ app.listen(app.get('port'), function() {
 
 app.get('/', (req, res) => {
   try {
-    // runRScript('test.R');
-    
-    console.log('tag is: ' + req.query.tag);
-    
-    sendFile('test.png', res, function() {
-      // após enviar o arquivo, o deleta
-      // deleteFile('graph.png');
-    });
+
+    // teste apenas
+    // let id = shortid.generate();
+    // let path = IMGS_DIR + id + IMG_EXT
+    // let url = BASE_URL + "graph/" + id
+    //
+    // console.log(path);
+    // console.log(url);
+
+    // fim do teste
+
+    // sendFile('test.png', res, function() {});
+    res.send(url)
 
   } catch (e) {
     res.send(e);
@@ -45,34 +56,43 @@ app.get("/graph", function(req, res) {
   sendFile('imgs/nova.png', res, function(){});
 });
 
+app.get("/graph/:id", function(req, res) {
+  var id = req.params.id;
+  let path = IMGS_DIR + id + IMG_EXT
+
+  // checa se o arquivo com nome do id existe
+  if (fs.existsSync(path)) {
+    // envia a imagem e a deleta em seguida
+    sendFile(path, res, function() {
+      deleteFile(path)
+    })
+  } else {
+    res.send(404)
+  }
+});
+
 app.post('/api/create', (req, res) => {
   let title = req.body.title
   let htmlAsString = req.body.file
-  
+
   try {
-    console.log("trying");
     let dataframe = scrap(htmlAsString)
-    
+
     // deve salvar o dataframe em um arquivo dataframe.csv para depois rodar o script em R
     saveToFile(dataframe, "dataframe.csv", function() {
-      console.log("did save dataframe");
       runRScript("plot.R")
-      
-      console.log("did run R script");
-      moveFile("graph.png", "imgs/nova.png")
-      
-      // deve gerar uma nova url para o recurso que será criado
-      
-      let newUrl = "http://localhost:5000/graph"
-      
-      res.send(newUrl);
+
+      let id = shortid.generate();
+      let path = IMGS_DIR + id + IMG_EXT
+      let url = BASE_URL + "graph/" + id
+
+      moveFile("graph.png", path, function() {
+        res.send(url);
+      });
     })
-    
+
   } catch (e) {
-    console.log("erro");
     res.send("erro")
-  } finally {
-    console.log("finally");
   }
 });
 
@@ -83,26 +103,25 @@ app.post('/api/create', (req, res) => {
 
 function sendFile(filename, res, callback) {
   let path = __dirname + '/' + filename;
-  
+
   fs.readFile(path, function(err, data) {
     if (err) {
       res.send(err);
       return;
     }
-    
+
     res.writeHead(200, {'Content-Type': 'image/jpeg'});
     res.end(data); // Send the file data to the browser.
-    
+
     callback();
   });
 }
 
 function saveToFile(content, filename, callback) {
   let path = __dirname + '/' + filename;
-  
+
   fs.writeFile(path, content, function(err) {
       if(err) {
-          // return console.log(err);
           throw "erro"
       } else {
         callback()
@@ -110,18 +129,15 @@ function saveToFile(content, filename, callback) {
   });
 }
 
-function moveFile(sourceFile, destPath) {
+function moveFile(sourceFile, destPath, callback) {
   //include the fs, path modules
   let path = __dirname + '/' + sourceFile;
 
-  fs.rename(sourceFile, destPath, (err)=>{
-    if(err) throw err;
-    else console.log('Successfully moved');
+  fs.rename(sourceFile, destPath, (err) => {
+    if (err) throw err;
+    else callback()
   });
 };
-
-//move file1.htm from 'test/' to 'test/dir_1/'
-// moveFile('./test/file1.htm', './test/dir_1/');
 
 function runRScript(filename) {
   console.log("will run R script");
