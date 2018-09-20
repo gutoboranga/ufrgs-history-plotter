@@ -2,3 +2,4 @@ dataframe.txt
 node_modules
 .DS_Store
 *.csv
+server/.git
