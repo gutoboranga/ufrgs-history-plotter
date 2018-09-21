@@ -1,5 +1,9 @@
-df = read.csv(file('dataframe.csv'), header=TRUE, sep=",", check.names=FALSE)
-png("graph.png", width = 1500, height = 600, units = 'px', res=200)
+args = commandArgs(trailingOnly=TRUE)
+input_file = args[1]
+output_file = args[2]
+
+df = read.csv(file(input_file), header=TRUE, sep=",", check.names=FALSE)
+png(output_file, width = 1500, height = 600, units = 'px', res=200)
 
 semesters <- df[['SEMESTRE']]
 a <- df[['QUANT_A']]

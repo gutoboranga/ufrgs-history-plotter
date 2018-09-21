@@ -21,5 +21,9 @@ make dataframe
 E para gerar o gráfico em si:
 
 ```
-make plot
+Rscript plot.R dataframe.csv image.png
 ```
+
+## Cliente-Servidor
+
+Uma implementação de cliente em html está disponível em [https://inf.ufrgs.br/~aboranga/grafico-historico/](https://inf.ufrgs.br/~aboranga/grafico-historico/).

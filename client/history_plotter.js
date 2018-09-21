@@ -4,11 +4,15 @@ function loadFile(o) {
    fr.onload = function(e) {
      var content = e.target.result
      
-     postFile("http://localhost:5000/api/create", content, function(response) {
+     let BASE_URL = "https://ufrgs-history-plotter-server.herokuapp.com/"
+     // let BASE_URL = "http://localhost:5000/"
+     
+     postFile(BASE_URL + "api/create", content, function(response) {
        if (response != "erro") {
          getGraph(response);
        } else {
-         alert("Algum erro ocorreu");
+           
+         alert(response)//"Algum erro ocorreu");
        }
      })
    };
@@ -31,7 +35,6 @@ function postFile(url, file, callback) {
   }
   
   var data = {
-    title : "teste da vaca louca",
     file : file
   }
   
@@ -45,7 +48,7 @@ function getGraph(url) {
   var newImg = new Image;
   
   newImg.onload = function() {
-      _img.src = this.src;
+    _img.src = this.src;
   }
   newImg.src = url;
 }
