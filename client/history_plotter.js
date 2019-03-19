@@ -1,5 +1,5 @@
-// let BASE_URL = "https://ufrgs-history-plotter-server.herokuapp.com"
-let BASE_URL = "http://localhost:5000"
+let BASE_URL = "https://ufrgs-history-plotter-server.herokuapp.com"
+// let BASE_URL = "http://localhost:5000"
 
 function loadFile(o) {
     var fr = new FileReader();

@@ -11,8 +11,8 @@ var app = express();
 let IMGS_DIR = "imgs/"
 let IMG_EXT = ".png"
 
-// let BASE_URL = "https://ufrgs-history-plotter-server.herokuapp.com"
-let BASE_URL = "http://localhost:5000"
+let BASE_URL = "https://ufrgs-history-plotter-server.herokuapp.com"
+// let BASE_URL = "http://localhost:5000"
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
