@@ -11,8 +11,8 @@ var app = express();
 let IMGS_DIR = "imgs/"
 let IMG_EXT = ".png"
 
-let BASE_URL = "https://ufrgs-history-plotter-server.herokuapp.com/"
-// let BASE_URL = "http://localhost:5000/"
+// let BASE_URL = "https://ufrgs-history-plotter-server.herokuapp.com"
+let BASE_URL = "http://localhost:5000"
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,31 +34,22 @@ app.listen(app.get('port'), function() {
 
 app.get('/', (req, res) => {
   try {
-
-    // teste apenas
-    // let id = shortid.generate();
-    // let path = IMGS_DIR + id + IMG_EXT
-    // let url = BASE_URL + "graph/" + id
-    //
-    // console.log(path);
-    // console.log(url);
-
-    // fim do teste
-
-    // sendFile('test.png', res, function() {});
+      
     console.log("/");
-    res.send(url)
+    res.send("I'm alive")
 
   } catch (e) {
     res.send(e);
   }
 });
 
-// app.get("/graph", function(req, res) {
-//   sendFile('imgs/nova.png', res, function(){});
-// });
+app.get("/test", function(req, res) {
+    console.log("TEST");
+    res.send("TEST");
+});
 
 app.get("/graph/:id", function(req, res) {
+    
   var id = req.params.id;
   let path = IMGS_DIR + id + IMG_EXT
   
@@ -72,7 +63,7 @@ app.get("/graph/:id", function(req, res) {
       console.log("> did send image " + id);
     })
   } else {
-    res.send(404)
+    res.send("erro")
   }
 });
 
@@ -80,7 +71,7 @@ app.post('/api/create', (req, res) => {
   console.log("> api/create requested");
   let title = req.body.title
   let htmlAsString = req.body.file
-  
+
   try {
     console.log("> will try to create dataframe");
     let dataframe = scrap(htmlAsString)
@@ -88,21 +79,21 @@ app.post('/api/create', (req, res) => {
 
     // deve salvar o dataframe em um arquivo dataframe.csv para depois rodar o script em R
     let filename = "dataframe.csv"
-    
+
     saveToFile(dataframe, filename, function() {
       console.log("> saved dataframe to file");
-      
+
       let id = shortid.generate();
       // let path = IMGS_DIR + id + IMG_EXT
-      
+
       let inputName = filename;
       let outputName = IMGS_DIR + id + IMG_EXT;
-      
+
       runRScript("plot.R", inputName, outputName)
-      
+
       console.log("> did run script");
-      
-      let url = BASE_URL + "graph/" + id;
+
+      let url = BASE_URL + "/graph/" + id;
       console.log("> " + outputName + " was created and is available at " + url);
       res.send(url);
     })

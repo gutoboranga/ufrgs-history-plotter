@@ -36,6 +36,20 @@ button {
 #resulting_image {
   display: block;
   margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#spinner_container {
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    
+    margin-top: 50px;
+    background-color: green;
+    
+    position: absolute;
 }
 
 @media (max-width: 900px)

@@ -83,16 +83,29 @@ function createDataFrame(history) {
   return dataframe;
 }
 
+function scrap(string) {
+  let dom = parseToDom(string);
+  
+  let content = getContent(dom);
+  let semesters = groupBy(content, 'semester')
+  
+  let dataframe = createDataFrame(semesters);
+}
+
 // main
-let pageStr = openFile('history.html');
-let dom = parseToDom(pageStr);
+// let pageStr = openFile('history.html');
+// let dom = parseToDom(pageStr);
+//
+// let content = getContent(dom);
+// let semesters = groupBy(content, 'semester')
+//
+// let dataframe = createDataFrame(semesters);
+//
+// console.log(dataframe);
 
-let content = getContent(dom);
-let semesters = groupBy(content, 'semester')
-
-let dataframe = createDataFrame(semesters);
-
-console.log(dataframe);
+module.exports = {
+  scrap : scrap
+}
 
 //
 // O dataframe tá no formato:
