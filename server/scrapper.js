@@ -13,6 +13,36 @@ function parseToDom(string) {
   return parser.parseFromString(string);
 }
 
+function getCompletionStatus(dom) {
+
+    let obrigatoriosDone = document.getElementsByClassName('tab_pequena modelo1odd')[0].children[1].innerText.replace(/\s/g, "")
+    
+    let eletivosDone = document.getElementsByClassName('tab_pequena modelo1odd')[1].children[1].innerText.replace(/\s/g, "")
+    
+    let complementaresDone = document.getElementsByClassName('tab_pequena modelo1even')[1].children[1].innerText.replace(/\s/g, "")
+    
+    let obrigatoriosCurriculo = document.getElementsByClassName('tab_pequena modelo1odd')[3].children[1].innerText.replace(/\s/g, "")
+    
+    let eletivosCurriculo = document.getElementsByClassName('tab_pequena modelo1odd')[4].children[1].innerText.replace(/\s/g, "")
+    
+    let complementaresCurriculo = document.getElementsByClassName('tab_pequena modelo1even')[3].children[1].innerText.replace(/\s/g, "")
+    
+    return {
+        "obrigatorios" : {
+            "done" : obrigatoriosDone,
+            "total" : obrigatoriosCurriculo
+        },
+        "eletivos" : {
+            "done" : eletivosDone,
+            "total" : eletivosCurriculo
+        },
+        "complementares" : {
+            "done" : complementaresDone,
+            "total" : complementaresCurriculo
+        }
+    }
+}
+
 function getContent(dom) {
   let content = dom.getElementsByClassName("modelo1")[0]
   
@@ -54,6 +84,15 @@ function groupBy(array, key) {
   return groups;
 }
 
+function createStatusDataframe(status) {
+    var dataframe = ""
+    
+    dataframe += status["obrigatorios"]["done"] + "," + status["eletivos"]["done"] + "," + status["complementares"]["done"] + "\n"
+    dataframe += status["obrigatorios"]["total"] + "," + status["eletivos"]["total"] + "," + status["complementares"]["total"]
+    
+    return "OBRIGATORIOS,ELETIVOS,COMPLEMENTARES\n" + dataframe
+}
+
 function createDataFrame(history) {
   var dataframe = ""
   
@@ -83,6 +122,18 @@ function createDataFrame(history) {
   return dataframe;
 }
 
+function scrapStatus(string) {
+    let dom = parseToDom(string);
+    try {
+      let content = getCompletionStatus(dom);
+      let dataframe = createStatusDataframe(content);
+      
+      return dataframe
+    } catch (e) {
+      throw e
+    }
+}
+
 function scrap(string) {
   let dom = parseToDom(string);
   try {
@@ -109,7 +160,8 @@ function scrap(string) {
 // console.log(dataframe);
 
 module.exports = {
-  scrap : scrap
+  scrap : scrap,
+  scrapStatus : scrapStatus
 }
 
 //

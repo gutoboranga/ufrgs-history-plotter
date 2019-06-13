@@ -9,3 +9,12 @@ dataframe:
 
 plot:
 	Rscript plotter.R
+
+deploy_heroku:
+	git subtree push --prefix server heroku master
+
+force_deploy_heroku:
+	git subtree split --prefix server -b gh-pages
+	git push -f origin gh-pages:master
+	git branch -D gh-pages
+

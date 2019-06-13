@@ -15,11 +15,9 @@ let BASE_URL = "https://ufrgs-history-plotter-server.herokuapp.com"
 // let BASE_URL = "http://localhost:5000"
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json())
-
-app.use(express.urlencoded()); // to support URL-encoded bodies
-app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.json({limit: '10mb'}));
+app.use(express.urlencoded({limit: '10mb', extended: true, parameterLimit:50000}));
+app.use(express.static('public'));
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -33,19 +31,7 @@ app.listen(app.get('port'), function() {
 // ========================================================================================
 
 app.get('/', (req, res) => {
-  try {
-      
-    console.log("/");
-    res.send("I'm alive")
-
-  } catch (e) {
-    res.send(e);
-  }
-});
-
-app.get("/test", function(req, res) {
-    console.log("TEST");
-    res.send("TEST");
+    res.sendFile('index.html')
 });
 
 app.get("/graph/:id", function(req, res) {
@@ -69,6 +55,7 @@ app.get("/graph/:id", function(req, res) {
 
 app.post('/api/create', (req, res) => {
   console.log("> api/create requested");
+  
   let title = req.body.title
   let htmlAsString = req.body.file
 
@@ -94,6 +81,7 @@ app.post('/api/create', (req, res) => {
       console.log("> did run script");
 
       let url = BASE_URL + "/graph/" + id;
+      
       console.log("> " + outputName + " was created and is available at " + url);
       res.send(url);
     })

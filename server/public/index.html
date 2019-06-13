@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Gráfico Histórico UFRGS</title>
+    <script type="text/javascript" src="cors.js"></script>
+    <script type="text/javascript" src="spin.js"></script>
+    <script type="text/javascript" src="history_plotter.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+  <body>
+    <div class="header">
+      <h1 align="center">Gráfico do Histórico Escolar UFRGS</h1><br>
+      
+      <p>Projeto que gera um gráfico do histórico escolar de alunos da UFRGS apresentando as notas ao longo do tempo (semestres).</p>
+	<p>É usado como entrada um arquivo html que pode ser obtido no site da UFRGS.</p><br>
+      <p><b><u>Instruções:</u></b></p>
+      
+      <p>
+        <b>1.</b>
+        Para obter o arquivo html, faça login no site da UFRGS e acesse:
+      </p>
+      
+      <p>
+        <a target="_blank" href="https://www1.ufrgs.br/intranet/portal/public/index.php?cods=1,1,2,4">https://www1.ufrgs.br/intranet/portal/public/index.php?cods=1,1,2,4</a>
+      </p>
+      
+      <p>
+        <b>2.</b>
+        Salve a página em html (<b>Arquivo > Salvar Página como</b> ou <b>Ctrl + S</b>)
+      </p>
+      
+      <p>
+        <b>3.</b>
+        Use o botão abaixo para carregar o arquivo e aguarde uns instantes.
+      </p>
+      
+    </div>
+    
+    <input type="file" onchange="loadFile(this)">
+    <!-- <div id="spinner_container" style="height: 50px; width: 50px;"></div> -->
+    <div id="spinner_container"></div>
+    <img id="resulting_image">
+    
+    </body>
+</html>

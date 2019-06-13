@@ -1,0 +1,61 @@
+body {
+  font-family: courier;
+}
+
+h1 {
+  font-weight: 800;
+}
+
+p {
+  max-width: 50%;
+  margin: auto;
+  padding-bottom: 20px;
+}
+
+input {
+  font-family: courier;
+  font-size: 14px;
+  margin: auto;
+  display: block;
+}
+
+input[type=file] {
+  
+}
+
+button {
+  font-family: courier;
+  font-size: 14px;
+  margin: auto;
+  display: block;
+}
+
+#upload {
+}
+
+#resulting_image {
+  display: block;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  max-width: 50%;
+}
+
+#spinner_container {
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    
+    margin-top: 50px;
+    background-color: green;
+    
+    position: absolute;
+}
+
+@media (max-width: 900px)
+{
+  p {
+    max-width: 90%;
+  }
+}
